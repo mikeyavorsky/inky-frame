@@ -689,4 +689,3 @@ class webserver:
         asyncio.cancel(self._server_coro)
         for hid, coro in self.conns.items():
             asyncio.cancel(coro)
-
