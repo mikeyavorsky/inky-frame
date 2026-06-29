@@ -1,0 +1,9 @@
+{
+  "version": "2026-06-29-2",
+  "files": [
+    "boot.py",
+    "main.py",
+    "nasa_apod.py",
+    "ota.py"
+  ]
+}
