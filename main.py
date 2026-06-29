@@ -141,6 +141,14 @@ try:
 except ImportError:
     print("Create secrets.py with your WiFi credentials")
 
+# Some inky_helper builds don't sync NTP inside network_connect, leaving the
+# RTC at its 2021-01-01 epoch. Sync explicitly so the caption timestamp is right.
+try:
+    import ntptime
+    ntptime.settime()
+except Exception as e:
+    print("NTP sync failed:", e)
+
 # Check for new code on every wake. Resets the device if an update is applied,
 # otherwise falls through. Best-effort - a failure here (no WiFi, GitHub down)
 # just means we run the existing code this cycle.
