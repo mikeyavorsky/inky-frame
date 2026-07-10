@@ -17,6 +17,11 @@
 
 import urequests, uos, gc, json, machine
 
+try:
+    from secrets import GITHUB_TOKEN
+except ImportError:
+    GITHUB_TOKEN = ""
+
 # Point these at your GitHub repo.
 GITHUB_USER = "mikeyavorsky"
 GITHUB_REPO = "inky-frame"
@@ -33,6 +38,17 @@ VERSION_FILE = "version.txt"
 PENDING_FILE = "update_pending"   # marks an update awaiting first-boot confirmation
 BAD_FILE     = "bad_version.txt"  # a version that booted badly and was rolled back
 BOOT_TRIES   = 1                  # trial boots allowed before rolling back
+
+
+def _auth_headers(extra=None):
+    # Token goes on every request: raw.githubusercontent.com and api.github.com
+    # both accept "Authorization: Bearer <fine-grained PAT>" for private repos.
+    h = {}
+    if GITHUB_TOKEN:
+        h["Authorization"] = "Bearer " + GITHUB_TOKEN
+    if extra:
+        h.update(extra)
+    return h
 
 
 def _local_version():
@@ -96,10 +112,10 @@ def _remove(name):
 def _latest_sha():
     # The GitHub API isn't behind the raw CDN, so it reflects pushes right away.
     # Accept: ...sha returns just the 40-char commit hash; User-Agent is required.
-    r = urequests.get(COMMIT_API, headers={
+    r = urequests.get(COMMIT_API, headers=_auth_headers({
         "User-Agent": "inky-frame-ota",
         "Accept": "application/vnd.github.sha",
-    })
+    }))
     try:
         if r.status_code != 200:
             raise OSError("HTTP %d for commit SHA" % r.status_code)
@@ -110,7 +126,7 @@ def _latest_sha():
 
 
 def _fetch_json(url):
-    r = urequests.get(url)
+    r = urequests.get(url, headers=_auth_headers())
     try:
         return r.json()
     finally:
@@ -119,7 +135,7 @@ def _fetch_json(url):
 
 
 def _download(url, dest):
-    r = urequests.get(url)
+    r = urequests.get(url, headers=_auth_headers())
     try:
         if r.status_code != 200:
             raise OSError("HTTP %d for %s" % (r.status_code, url))

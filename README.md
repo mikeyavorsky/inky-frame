@@ -30,8 +30,12 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
    # secrets.py
    WIFI_SSID     = "your-ssid"
    WIFI_PASSWORD = "your-wifi-password"
+   GITHUB_TOKEN  = "your-fine-grained-personal-access-token"
    ```
-   `secrets.py` is gitignored, so it stays off the repo.
+   `secrets.py` is gitignored, so it stays off the repo. `GITHUB_TOKEN` is
+   optional while the repository is public. Before making it private, create a
+   fine-grained GitHub personal access token scoped to this repository with
+   read-only **Contents** permission and install it on the device.
 2. Edit `ota.py` and point `GITHUB_USER` / `GITHUB_REPO` at your fork.
 3. Copy `boot.py`, `main.py`, `nasa_apod.py`, `ota.py`, `manifest.json`, and
    `secrets.py` onto the Inky Frame.
