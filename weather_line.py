@@ -66,6 +66,15 @@ def _center(text, x, y, scale, pen):
     graphics.text(text, int(x - w // 2), int(y), WIDTH, scale)
 
 
+def _bold_text(text, x, y, scale, pen):
+    """Draw bitmap text with a small offset to give it a heavier weight."""
+    graphics.set_pen(pen)
+    graphics.text(text, int(x), int(y), WIDTH, scale)
+    graphics.text(text, int(x + 2), int(y), WIDTH, scale)
+    graphics.text(text, int(x), int(y + 2), WIDTH, scale)
+    graphics.text(text, int(x + 2), int(y + 2), WIDTH, scale)
+
+
 def _hour_label(iso):
     try:
         hour = int(iso[11:13])
@@ -90,16 +99,14 @@ def draw():
     # The remaining-day extrema are deliberately oversized and right aligned.
     # Draw them before the graph: its white under-stroke cuts a clean channel
     # through a digit wherever the two overlap.
-    number_scale = 11 if WIDTH >= 600 else 8
+    number_scale = 14 if WIDTH >= 600 else 10
     high_text = "%d" % round(high)
     low_text = "%d" % round(low)
-    graphics.set_pen(BLACK)
-    graphics.text(high_text,
-                  WIDTH - margin - graphics.measure_text(high_text, number_scale),
-                  12, WIDTH, number_scale)
-    graphics.text(low_text,
-                  WIDTH - margin - graphics.measure_text(low_text, number_scale),
-                  HEIGHT - (number_scale * 8) - 12, WIDTH, number_scale)
+    high_x = WIDTH - margin - graphics.measure_text(high_text, number_scale) - 2
+    low_x = WIDTH - margin - graphics.measure_text(low_text, number_scale) - 2
+    _bold_text(high_text, high_x, 8, number_scale, BLACK)
+    _bold_text(low_text, low_x,
+               HEIGHT - (number_scale * 8) - 10, number_scale, BLACK)
 
     left, right = margin, WIDTH - margin
     top, bottom = 55, HEIGHT - 55
@@ -117,10 +124,15 @@ def draw():
             graphics.line(int(xs[i]), int(ys[i]),
                           int(xs[i + 1]), int(ys[i + 1]), thickness)
 
+    label_scale = 3 if WIDTH >= 600 else 2
     for i in range(count):
         x, y = int(xs[i]), int(ys[i])
-        graphics.set_pen(RED if i == 0 else BLUE)
-        graphics.circle(x, y, 7 if i == 0 else 5)
+        current = i == 0
+        graphics.set_pen(RED if current else BLUE)
+        graphics.circle(x, y, 7 if current else 5)
+        _center("%d" % round(temps[i]), x, y - 35, label_scale,
+                RED if current else BLACK)
+        _center(_hour_label(times[i]), x, HEIGHT - 45, 2, BLACK)
 
     graphics.update()
     gc.collect()
