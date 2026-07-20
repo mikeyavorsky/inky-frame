@@ -126,14 +126,13 @@ def launcher():
             reset()
 
 
-# Turn any LEDs off that may still be on from last run.
+# Turn any LEDs off that may still be on from last run. Latch the launcher
+# gesture now so the buttons do not need to be held while WiFi and OTA run,
+# but defer entering the blocking launcher until after the OTA check.
 ih.clear_button_leds()
 ih.led_warn.off()
-
-if ih.inky_frame.button_a.read() and ih.inky_frame.button_e.read():
-    launcher()
-
-ih.clear_button_leds()
+launch_requested = (ih.inky_frame.button_a.read()
+                    and ih.inky_frame.button_e.read())
 
 try:
     from secrets import WIFI_PASSWORD, WIFI_SSID
@@ -156,6 +155,12 @@ try:
     ota.check_and_update()
 except Exception as e:
     print("OTA check failed:", e)
+
+if launch_requested:
+    ih.clear_button_leds()
+    launcher()
+
+ih.clear_button_leds()
 
 if ih.file_exists("state.json"):
     # Loads the JSON and launches the app
