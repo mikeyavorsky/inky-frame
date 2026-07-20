@@ -74,7 +74,7 @@ def launcher():
     graphics.set_pen(GREEN)
     graphics.rectangle(30, HEIGHT - (100 + y_offset), WIDTH - 300, 50)
     graphics.set_pen(1)
-    graphics.text("E. Carbon Intensity", 35, HEIGHT - (85 + y_offset), 600, 3)
+    graphics.text("E. Weather", 35, HEIGHT - (85 + y_offset), 600, 3)
 
     graphics.set_pen(graphics.create_pen(220, 220, 220))
     graphics.rectangle(WIDTH - 100, HEIGHT - (340 + y_offset), 70, 50)
@@ -121,7 +121,7 @@ def launcher():
             reset()
         if ih.inky_frame.button_e.read():
             ih.inky_frame.button_e.led_on()
-            ih.update_state("carbon_intensity")
+            ih.update_state("weather_line")
             time.sleep(0.5)
             reset()
 

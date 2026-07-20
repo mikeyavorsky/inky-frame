@@ -1,7 +1,7 @@
 # inky-frame
 
-MicroPython app for a Pimoroni Inky Frame 5.7" that shows NASA's Astronomy
-Picture of the Day, refreshed every 4 hours. Supports over-the-air (OTA)
+MicroPython apps for a Pimoroni Inky Frame 5.7", including NASA's Astronomy
+Picture of the Day and an hourly weather forecast line. Supports over-the-air (OTA)
 updates pulled from this repo, so you can ship fixes without physically
 reflashing the device.
 
@@ -20,6 +20,7 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
 | `boot.py` | Runs on every wake/reset: rolls back the previous update if it never confirmed itself. Offline so a bad update that breaks WiFi can still be undone. |
 | `main.py` | Connects WiFi, checks for an OTA update, then loads the app selected in `state.json` (NASA APOD by default) and deep-sleeps between refreshes. |
 | `nasa_apod.py` | Fetches the daily APOD JPEG and draws it on the e-ink panel. |
+| `weather_line.py` | Draws the next 10 hours of Quincy temperatures from Open-Meteo; launcher button E. |
 | `ota.py` | Pull-based OTA updater. Stages files to `.new` names, then commits by renaming, so a dropped connection can't corrupt running code. Backs up the old version and rolls back if a new one fails to boot. |
 | `manifest.json` | Version marker and the list of files an update covers. |
 
@@ -37,8 +38,8 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
    fine-grained GitHub personal access token scoped to this repository with
    read-only **Contents** permission and install it on the device.
 2. Edit `ota.py` and point `GITHUB_USER` / `GITHUB_REPO` at your fork.
-3. Copy `boot.py`, `main.py`, `nasa_apod.py`, `ota.py`, `manifest.json`, and
-   `secrets.py` onto the Inky Frame.
+3. Copy `boot.py`, `main.py`, `nasa_apod.py`, `weather_line.py`, `ota.py`,
+   `manifest.json`, and `secrets.py` onto the Inky Frame.
 4. Hold buttons **A + E** while pressing Reset to enter the launcher and pick
    NASA APOD. After that, the device boots straight into the app on each wake.
 

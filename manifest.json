@@ -1,9 +1,10 @@
 {
-  "version": "2026-06-29-3",
+  "version": "2026-07-20-1",
   "files": [
     "boot.py",
     "main.py",
     "nasa_apod.py",
+    "weather_line.py",
     "ota.py"
   ]
 }
