@@ -9,8 +9,7 @@ from inky_frame import BLACK, BLUE, RED, WHITE, YELLOW
 
 LAT = 42.2529
 LON = -71.0023
-LOCATION_LABEL = "Quincy 02169"
-NHOURS = 10
+NHOURS = 24
 UPDATE_INTERVAL = 60
 TZ_OFFSET = -4 * 3600
 
@@ -36,8 +35,19 @@ def update():
     try:
         socket = urequest.urlopen(API_URL)
         data = load(socket)["hourly"]
-        times = data["time"][:NHOURS]
-        temps = data["temperature_2m"][:NHOURS]
+        forecast_times = data["time"][:NHOURS]
+        forecast_temps = data["temperature_2m"][:NHOURS]
+        # Open-Meteo starts at the current local hour. Only retain readings
+        # from that date, so the extrema are for the rest of today rather
+        # than the next 24 hours.
+        today = forecast_times[0][:10]
+        times = []
+        temps = []
+        for forecast_time, forecast_temp in zip(forecast_times, forecast_temps):
+            if forecast_time[:10] != today:
+                break
+            times.append(forecast_time)
+            temps.append(forecast_temp)
         now = time.localtime(time.time() + TZ_OFFSET)
         hour = now[3] % 12 or 12
         updated = "upd %d:%02d%s" % (hour, now[4], "a" if now[3] < 12 else "p")
@@ -75,36 +85,42 @@ def draw():
         return
 
     margin = max(20, WIDTH // 30)
+    low, high = min(temps), max(temps)
+
+    # The remaining-day extrema are deliberately oversized and right aligned.
+    # Draw them before the graph: its white under-stroke cuts a clean channel
+    # through a digit wherever the two overlap.
+    number_scale = 11 if WIDTH >= 600 else 8
+    high_text = "%d" % round(high)
+    low_text = "%d" % round(low)
     graphics.set_pen(BLACK)
-    graphics.text(LOCATION_LABEL, margin, 18, WIDTH, 3)
-    if updated:
-        w = graphics.measure_text(updated, 3)
-        graphics.set_pen(RED)
-        graphics.text(updated, WIDTH - margin - w, 18, WIDTH, 3)
+    graphics.text(high_text,
+                  WIDTH - margin - graphics.measure_text(high_text, number_scale),
+                  12, WIDTH, number_scale)
+    graphics.text(low_text,
+                  WIDTH - margin - graphics.measure_text(low_text, number_scale),
+                  HEIGHT - (number_scale * 8) - 12, WIDTH, number_scale)
 
     left, right = margin, WIDTH - margin
-    top, bottom = 115, HEIGHT - 90
+    top, bottom = 55, HEIGHT - 55
     count = len(temps)
     step = (right - left) / (count - 1) if count > 1 else 0
     xs = [left + i * step for i in range(count)] if count > 1 else [WIDTH // 2]
-    low, high = min(temps), max(temps)
     span = high - low or 1
     ys = [bottom - (temp - low) * (bottom - top) / span for temp in temps]
 
-    graphics.set_pen(YELLOW)
-    for i in range(count - 1):
-        graphics.line(int(xs[i]), int(ys[i]), int(xs[i + 1]), int(ys[i + 1]), 4)
+    # A broad white line erases the portion of a high/low digit behind the
+    # forecast, then the narrower yellow stroke remains legible in the gap.
+    for pen, thickness in ((WHITE, 12), (YELLOW, 4)):
+        graphics.set_pen(pen)
+        for i in range(count - 1):
+            graphics.line(int(xs[i]), int(ys[i]),
+                          int(xs[i + 1]), int(ys[i + 1]), thickness)
 
-    label_scale = 3 if WIDTH >= 600 else 2
     for i in range(count):
         x, y = int(xs[i]), int(ys[i])
-        current = i == 0
-        graphics.set_pen(RED if current else BLUE)
-        radius = 7 if current else 5
-        graphics.circle(x, y, radius)
-        _center("%d" % round(temps[i]), x, y - 35, label_scale,
-                RED if current else BLACK)
-        _center(_hour_label(times[i]), x, HEIGHT - 55, 2, BLACK)
+        graphics.set_pen(RED if i == 0 else BLUE)
+        graphics.circle(x, y, 7 if i == 0 else 5)
 
     graphics.update()
     gc.collect()
