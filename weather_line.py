@@ -1,21 +1,22 @@
-"""Hourly temperature line for Quincy, MA, adapted from pi-zero/weather-phat.py."""
+"""Twelve-hour temperature and precipitation forecast for Quincy, MA."""
 
 import gc
 import time
 from urllib import urequest
 from ujson import load
 
-from inky_frame import BLACK, BLUE, RED, WHITE, YELLOW
+from inky_frame import BLACK, BLUE, RED, WHITE
 
 LAT = 42.2529
 LON = -71.0023
-NHOURS = 24
+NHOURS = 12
 UPDATE_INTERVAL = 60
 TZ_OFFSET = -4 * 3600
 
 API_URL = (
     "https://api.open-meteo.com/v1/forecast"
-    "?latitude=%s&longitude=%s&hourly=temperature_2m"
+    "?latitude=%s&longitude=%s"
+    "&hourly=temperature_2m,precipitation_probability"
     "&temperature_unit=fahrenheit&timezone=auto&forecast_hours=%d"
 ) % (LAT, LON, NHOURS)
 
@@ -24,30 +25,21 @@ WIDTH = 600
 HEIGHT = 448
 times = []
 temps = []
+precip_chances = []
 updated = ""
 error = None
 
 
 def update():
-    global times, temps, updated, error
+    global times, temps, precip_chances, updated, error
     error = None
     socket = None
     try:
         socket = urequest.urlopen(API_URL)
         data = load(socket)["hourly"]
-        forecast_times = data["time"][:NHOURS]
-        forecast_temps = data["temperature_2m"][:NHOURS]
-        # Open-Meteo starts at the current local hour. Only retain readings
-        # from that date, so the extrema are for the rest of today rather
-        # than the next 24 hours.
-        today = forecast_times[0][:10]
-        times = []
-        temps = []
-        for forecast_time, forecast_temp in zip(forecast_times, forecast_temps):
-            if forecast_time[:10] != today:
-                break
-            times.append(forecast_time)
-            temps.append(forecast_temp)
+        times = data["time"][:NHOURS]
+        temps = data["temperature_2m"][:NHOURS]
+        precip_chances = data["precipitation_probability"][:NHOURS]
         now = time.localtime(time.time() + TZ_OFFSET)
         hour = now[3] % 12 or 12
         updated = "upd %d:%02d%s" % (hour, now[4], "a" if now[3] < 12 else "p")
@@ -66,15 +58,6 @@ def _center(text, x, y, scale, pen):
     graphics.text(text, int(x - w // 2), int(y), WIDTH, scale)
 
 
-def _bold_text(text, x, y, scale, pen):
-    """Draw bitmap text with a small offset to give it a heavier weight."""
-    graphics.set_pen(pen)
-    graphics.text(text, int(x), int(y), WIDTH, scale)
-    graphics.text(text, int(x + 2), int(y), WIDTH, scale)
-    graphics.text(text, int(x), int(y + 2), WIDTH, scale)
-    graphics.text(text, int(x + 2), int(y + 2), WIDTH, scale)
-
-
 def _hour_label(iso):
     try:
         hour = int(iso[11:13])
@@ -88,50 +71,44 @@ def draw():
     graphics.set_pen(WHITE)
     graphics.clear()
 
-    if error or not temps:
+    if error or not temps or not precip_chances:
         _center(error or "No weather data", WIDTH // 2, HEIGHT // 2 - 20, 4, BLACK)
         graphics.update()
         return
 
     margin = max(20, WIDTH // 30)
     low, high = min(temps), max(temps)
-
-    # The remaining-day extrema are deliberately oversized and right aligned.
-    # Draw them before the graph: its white under-stroke cuts a clean channel
-    # through a digit wherever the two overlap.
-    number_scale = 14 if WIDTH >= 600 else 10
-    high_text = "%d" % round(high)
-    low_text = "%d" % round(low)
-    high_x = WIDTH - margin - graphics.measure_text(high_text, number_scale) - 2
-    low_x = WIDTH - margin - graphics.measure_text(low_text, number_scale) - 2
-    _bold_text(high_text, high_x, 8, number_scale, BLACK)
-    _bold_text(low_text, low_x,
-               HEIGHT - (number_scale * 8) - 10, number_scale, BLACK)
-
     left, right = margin, WIDTH - margin
-    top, bottom = 55, HEIGHT - 55
-    count = len(temps)
+    top, bottom = 30, HEIGHT - 75
+    count = min(len(times), len(temps), len(precip_chances), NHOURS)
     step = (right - left) / (count - 1) if count > 1 else 0
     xs = [left + i * step for i in range(count)] if count > 1 else [WIDTH // 2]
-    span = high - low or 1
-    ys = [bottom - (temp - low) * (bottom - top) / span for temp in temps]
+    temp_span = high - low
+    if temp_span:
+        temp_ys = [
+            bottom - (temp - low) * (bottom - top) / temp_span
+            for temp in temps[:count]
+        ]
+    else:
+        temp_ys = [(top + bottom) / 2 for _ in range(count)]
 
-    # A broad white line erases the portion of a high/low digit behind the
-    # forecast, then the narrower yellow stroke remains legible in the gap.
-    for pen, thickness in ((WHITE, 12), (YELLOW, 4)):
-        graphics.set_pen(pen)
-        for i in range(count - 1):
-            graphics.line(int(xs[i]), int(ys[i]),
-                          int(xs[i + 1]), int(ys[i + 1]), thickness)
+    # Precipitation always uses a fixed, unlabeled 0–100% vertical scale.
+    precip_ys = [
+        bottom - max(0, min(100, chance)) * (bottom - top) / 100
+        for chance in precip_chances[:count]
+    ]
+    graphics.set_pen(BLUE)
+    for i in range(count - 1):
+        graphics.line(int(xs[i]), int(precip_ys[i]),
+                      int(xs[i + 1]), int(precip_ys[i + 1]), 4)
 
     label_scale = 3 if WIDTH >= 600 else 2
     for i in range(count):
-        x, y = int(xs[i]), int(ys[i])
-        current = i == 0
-        graphics.set_pen(RED if current else BLUE)
-        graphics.circle(x, y, 7 if current else 5)
-        _center("%d" % round(temps[i]), x, y - 35, label_scale,
-                RED if current else BLACK)
+        x, y = int(xs[i]), int(temp_ys[i])
+        # The hourly values themselves imply the temperature curve; there is
+        # deliberately no connecting line or point marker for this series.
+        _center("%d" % round(temps[i]), x, y - label_scale * 4,
+                label_scale, RED)
         _center(_hour_label(times[i]), x, HEIGHT - 45, 2, BLACK)
 
     graphics.update()

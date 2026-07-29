@@ -20,7 +20,7 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
 | `boot.py` | Runs on every wake/reset: rolls back the previous update if it never confirmed itself. Offline so a bad update that breaks WiFi can still be undone. |
 | `main.py` | Connects WiFi, checks for an OTA update, then loads the app selected in `state.json` (NASA APOD by default) and deep-sleeps between refreshes. |
 | `nasa_apod.py` | Fetches the daily APOD JPEG and draws it on the e-ink panel. |
-| `weather_line.py` | Draws the next 10 hours of Quincy temperatures from Open-Meteo; launcher button E. |
+| `weather_line.py` | Draws the next 12 hours of Quincy temperature values and precipitation chance from Open-Meteo; launcher button E. |
 | `ota.py` | Pull-based OTA updater. Stages files to `.new` names, then commits by renaming, so a dropped connection can't corrupt running code. Backs up the old version and rolls back if a new one fails to boot. |
 | `manifest.json` | Version marker and the list of files an update covers. |
 
