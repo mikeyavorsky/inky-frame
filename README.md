@@ -5,6 +5,9 @@ Picture of the Day and an hourly weather forecast line. Supports over-the-air (O
 updates pulled from this repo, so you can ship fixes without physically
 reflashing the device.
 
+The wireless and warning LEDs are automatically suppressed from 10 PM through
+7 AM Eastern time, including daylight-saving time changes.
+
 ## Hardware
 
 - [Pimoroni Inky Frame 5.7"](https://shop.pimoroni.com/products/inky-frame-5-7)

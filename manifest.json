@@ -1,7 +1,8 @@
 {
-  "version": "2026-07-29-1",
+  "version": "2026-08-26-1",
   "files": [
     "boot.py",
+    "inky_helper.py",
     "main.py",
     "nasa_apod.py",
     "weather_line.py",

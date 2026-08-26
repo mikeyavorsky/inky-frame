@@ -88,9 +88,9 @@ def launcher():
     note_len = graphics.measure_text(note, 2) // 2
     graphics.text(note, (WIDTH // 2 - note_len), HEIGHT - 30, 600, 2)
 
-    ih.led_warn.on()
+    ih.set_warn_led(True)
     graphics.update()
-    ih.led_warn.off()
+    ih.set_warn_led(False)
 
     # Now we've drawn the menu to the screen, we wait here for the user to select an app.
     # Then once an app is selected, we set that as the current app and reset the device and load into it.
@@ -130,7 +130,7 @@ def launcher():
 # gesture now so the buttons do not need to be held while WiFi and OTA run,
 # but defer entering the blocking launcher until after the OTA check.
 ih.clear_button_leds()
-ih.led_warn.off()
+ih.set_warn_led(False)
 launch_requested = (ih.inky_frame.button_a.read()
                     and ih.inky_frame.button_e.read())
 
@@ -193,9 +193,9 @@ ota.mark_boot_ok()
 try:
     while True:
         ih.app.update()
-        ih.led_warn.on()
+        ih.set_warn_led(True)
         ih.app.draw()
-        ih.led_warn.off()
+        ih.set_warn_led(False)
         print("sleeping")
         ih.sleep(ih.app.UPDATE_INTERVAL)
 except Exception as e:
@@ -211,4 +211,3 @@ except Exception as e:
     except Exception:
         time.sleep(300)
     reset()
-
