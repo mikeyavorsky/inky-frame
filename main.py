@@ -156,25 +156,24 @@ try:
 except Exception as e:
     print("OTA check failed:", e)
 
+# Restore APOD once for existing devices, while preserving later menu choices.
+if ih.file_exists("state.json"):
+    ih.load_state()
+if ih.state.get("apod_daily_default") != 1:
+    ih.state["apod_daily_default"] = 1
+    ih.update_state("nasa_apod")
+
 if launch_requested:
     ih.clear_button_leds()
     launcher()
 
 ih.clear_button_leds()
+ih.launch_app(ih.state.get("run") or "nasa_apod")
 
-if ih.file_exists("state.json"):
-    # Loads the JSON and launches the app
-    print("load state")
-    ih.load_state()
-    ih.launch_app(ih.state["run"])
-
-    # Passes the the graphics object from the launcher to the app
-    ih.app.graphics = graphics
-    ih.app.WIDTH = WIDTH
-    ih.app.HEIGHT = HEIGHT
-
-else:
-    launcher()
+# Pass the graphics object from the launcher to the app.
+ih.app.graphics = graphics
+ih.app.WIDTH = WIDTH
+ih.app.HEIGHT = HEIGHT
 
 # Get some memory back, we really need it!
 gc.collect()

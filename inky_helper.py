@@ -144,9 +144,21 @@ def stop_network_led():
 
 def sleep(t):
     # Time to have a little nap until the next update
+    rtc.enable_timer_interrupt(False)
+    rtc.enable_alarm_interrupt(False)
     rtc.clear_timer_flag()
-    rtc.set_timer(t, ttp=rtc.TIMER_TICK_1_OVER_60HZ)
-    rtc.enable_timer_interrupt(True)
+    rtc.clear_alarm_flag()
+    if t <= 255:
+        rtc.set_timer(t, ttp=rtc.TIMER_TICK_1_OVER_60HZ)
+        rtc.enable_timer_interrupt(True)
+    else:
+        # The countdown timer is only 8 bits. Use a calendar alarm for
+        # longer sleeps, calculated from the external RTC's own clock.
+        now = rtc.datetime()
+        wake = time.localtime(time.mktime(now + (0,)) + 60 * t)
+        rtc.set_alarm(second=wake[5], minute=wake[4],
+                      hour=wake[3], day=wake[2])
+        rtc.enable_alarm_interrupt(True)
 
     # Set the HOLD VSYS pin to an input
     # this allows the device to go into sleep mode when on battery power.

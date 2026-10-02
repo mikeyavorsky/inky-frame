@@ -19,7 +19,7 @@ API_URL = "https://api.nasa.gov/planetary/apod?api_key=YWpGuepcYi4pxPdN05buk4KFT
 
 # Length of time between updates in minutes.
 # Frequent updates will reduce battery life!
-UPDATE_INTERVAL = 240
+UPDATE_INTERVAL = 24 * 60
 
 # Added to the RTC (which NTP sets to UTC) when stamping the caption.
 # -4*3600 = EDT, -5*3600 = EST, 0 = UTC.

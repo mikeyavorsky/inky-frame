@@ -43,8 +43,9 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
 2. Edit `ota.py` and point `GITHUB_USER` / `GITHUB_REPO` at your fork.
 3. Copy `boot.py`, `main.py`, `nasa_apod.py`, `weather_line.py`, `ota.py`,
    `manifest.json`, and `secrets.py` onto the Inky Frame.
-4. Hold buttons **A + E** while pressing Reset to enter the launcher and pick
-   NASA APOD. After that, the device boots straight into the app on each wake.
+4. The device boots into NASA APOD and refreshes every 24 hours. Hold buttons
+   **A + E** while pressing Reset to enter the launcher and choose another app.
+   This update restores APOD once on existing devices; later choices are saved.
 
 ## Shipping an update
 
@@ -53,7 +54,7 @@ flashed — it bundles `picographics`, `inky_frame`, `inky_helper`, and `jpegdec
    that changed.
 3. Push to the branch the device polls (`main` by default).
 
-On its next wake (every 4 hours by default, or whenever it next refreshes) the
+On its next wake (every 24 hours with APOD, or whenever it next refreshes) the
 device sees the new version, downloads the listed files, commits them, and
 resets into the updated code.
 
