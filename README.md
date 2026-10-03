@@ -82,3 +82,14 @@ Unlike the pico-display app (which polls every 5 minutes while running), the
 Inky Frame deep-sleeps for hours between refreshes to preserve battery. Every
 wake is effectively a fresh boot through `boot.py` → `main.py`, so the OTA
 check happens once per cycle without any extra polling.
+
+## APOD image feed
+
+A daily GitHub Actions job (`.github/workflows/apod.yml`, 10:17 UTC) reads
+the featured APOD article on NASA Science and publishes baseline JPEGs in
+`assets/apod`. Images fit entirely above the caption, with black borders as
+needed. Content-addressed filenames keep cached metadata paired with the
+correct image. The generator rejects missing images (including video-only
+days) and leaves the last successful feed intact. Failed device downloads
+retain the previous image. Run `python scripts/build_apod.py` with Pillow
+and Beautiful Soup installed to refresh the feed manually.

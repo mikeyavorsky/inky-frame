@@ -11,3 +11,8 @@ update_pending
 # Inky Frame runtime state (which app to run, cached images).
 state.json
 nasa-apod-daily
+
+apod-image.jpg
+apod-image.json
+__pycache__/
+*.pyc
