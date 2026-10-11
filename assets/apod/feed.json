@@ -1,9 +1,9 @@
 {
-  "title": "Lunar Farside",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/farside_lro1600.jpg?w=1600&h=1600&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "Ice Fishing for Cosmic Neutrinos",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/deephole_icecube_4000.jpg?w=0&h=0&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "1dcedcd45da3f389cd2f.jpg",
-    "400": "57ee238072c351594860.jpg",
-    "480": "bd66192cd30991083419.jpg"
+    "448": "5f49e4a3be9b1862d0d0.jpg",
+    "400": "f6cb773835a7cbc78f62.jpg",
+    "480": "fd3d03182dc9c6dfccf3.jpg"
   }
 }
