@@ -1,9 +1,9 @@
 {
-  "title": "Desert Stairway to Heaven",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/Stairway2Heaven_Looten_6750.jpg?w=6750&h=9000&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "The Milky Way over Manhattan",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/Manhattan%20Milkyway.jpg?w=1152&h=2048&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "c7a8562144a4b55d8464.jpg",
-    "400": "4234f198207f4508547f.jpg",
-    "480": "7f8767bae2e2f2a58b41.jpg"
+    "448": "2a1ea64626e06ffe4e8c.jpg",
+    "400": "e61aa1b61257e940929d.jpg",
+    "480": "3326c0914317e84276bc.jpg"
   }
 }
