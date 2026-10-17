@@ -1,9 +1,9 @@
 {
-  "title": "The Milky Way over Manhattan",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/Manhattan%20Milkyway.jpg?w=1152&h=2048&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "3D 67P",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/anaglyph-NAC_2015-07-25T06.28.48.742Z_lamy.jpg?w=2048&h=1884&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "2a1ea64626e06ffe4e8c.jpg",
-    "400": "e61aa1b61257e940929d.jpg",
-    "480": "3326c0914317e84276bc.jpg"
+    "448": "45ebdca8df69ed0f37db.jpg",
+    "400": "adbeb27e9a0fe8269de7.jpg",
+    "480": "b86a8e9bd56bae8dcf21.jpg"
   }
 }
