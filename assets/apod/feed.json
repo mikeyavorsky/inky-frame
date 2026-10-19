@@ -1,9 +1,9 @@
 {
-  "title": "3D 67P",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/anaglyph-NAC_2015-07-25T06.28.48.742Z_lamy.jpg?w=2048&h=1884&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "Treble Clef: Unusual X-ray Hot Radio Source",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/trebleclef.jpg?w=2048&h=1525&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "45ebdca8df69ed0f37db.jpg",
-    "400": "adbeb27e9a0fe8269de7.jpg",
-    "480": "b86a8e9bd56bae8dcf21.jpg"
+    "448": "92d2b9e6d26b0f513e48.jpg",
+    "400": "3d78ff593935a72f58eb.jpg",
+    "480": "4fc9a3417db7f8b67d0f.jpg"
   }
 }
