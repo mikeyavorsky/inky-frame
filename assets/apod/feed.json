@@ -1,9 +1,9 @@
 {
-  "title": "Andromeda in Southern Spring",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/APOD_Lucy.jpg?w=2048&h=1368&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "Rosetta's Selfie",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/ESA_Rosetta_Philae_CIVA_141007.png?w=1024&h=1024&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "c69a34c170193036388e.jpg",
-    "400": "e6f8007210c3da44413d.jpg",
-    "480": "89afc3fd1fcf634cf3fa.jpg"
+    "448": "98efda4d53bc2345ab4e.jpg",
+    "400": "680d1889072528607447.jpg",
+    "480": "cc3cac87c65650280b38.jpg"
   }
 }
