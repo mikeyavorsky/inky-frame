@@ -1,9 +1,9 @@
 {
-  "title": "Astronomy Picture of the Day",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/NocClouds_Hofer_6048.jpg?w=2048&h=1365&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "The Horns of Venus",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/venus_20261024a.jpg?w=744&h=744&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "fcfe3dae08b522e7dd07.jpg",
-    "400": "bed187fae5cd0a828f71.jpg",
-    "480": "8db649fddb94b70dbaeb.jpg"
+    "448": "518cd1a95e9aea7da56d.jpg",
+    "400": "47235eb1892605c362f2.jpg",
+    "480": "4350c5c8b936ea1fd85b.jpg"
   }
 }
