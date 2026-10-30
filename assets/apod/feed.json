@@ -1,9 +1,9 @@
 {
-  "title": "The Horns of Venus",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/venus_20261024a.jpg?w=744&h=744&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "Haunting the Cepheus Flare",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/october/CepheusFlare_Tondinelli.jpg?w=2048&h=1391&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "518cd1a95e9aea7da56d.jpg",
-    "400": "47235eb1892605c362f2.jpg",
-    "480": "4350c5c8b936ea1fd85b.jpg"
+    "448": "2260d2ed73a628166bbf.jpg",
+    "400": "d677b99ce1b441bf0896.jpg",
+    "480": "b7a4ca3fe471d3ec548f.jpg"
   }
 }
