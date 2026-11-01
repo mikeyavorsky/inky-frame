@@ -1,9 +1,9 @@
 {
-  "title": "Night on a Spooky Planet",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/Hverir_Vetter_1300.jpg?w=1300&h=867&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "Colors of the Moon",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/MoonColors_Pace_960.jpg?w=960&h=991&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "ca4738b595bd50cdbdf4.jpg",
-    "400": "8c7897a1836d733f4b81.jpg",
-    "480": "c122b941094f41ad382f.jpg"
+    "448": "5b366228470b63d37ecf.jpg",
+    "400": "0299ee7384688cc54781.jpg",
+    "480": "2c72bc66c1c6a9525bb8.jpg"
   }
 }
