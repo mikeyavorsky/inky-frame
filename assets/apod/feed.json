@@ -1,9 +1,9 @@
 {
-  "title": "Comet PanSTARRs and Rainbow Meteor",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/CometMeteor_Metais_1934.jpg?w=0&h=0&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "The Not-So-Hidden Galaxy, IC 342",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/ic342.png?w=2048&h=1395&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "836a94f960f0a300fe76.jpg",
-    "400": "681a0980e0f42740b52f.jpg",
-    "480": "d6b128531e073302e43b.jpg"
+    "448": "585aca6e0f0c4d2391dc.jpg",
+    "400": "f57aee56f2527e235e64.jpg",
+    "480": "827d8b373ac8fd95afa4.jpg"
   }
 }
