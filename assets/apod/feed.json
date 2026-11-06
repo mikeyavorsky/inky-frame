@@ -1,9 +1,9 @@
 {
-  "title": "Enceladus in Silhouette",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/PIA17144EnceladusPandora.png?w=982&h=575&fit=clip&crop=faces%2Cfocalpoint",
+  "title": "A Farewell to Swift",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/Swift_Millionth_Image_Mosaic.jpg?w=2048&h=1460&fit=clip&crop=faces%2Cfocalpoint",
   "images": {
-    "448": "bdbca8b9f571ef5acd71.jpg",
-    "400": "8703717a24dffd2b3709.jpg",
-    "480": "1c787ca04dc6003ea9f1.jpg"
+    "448": "9cb45e121c5d467a80fb.jpg",
+    "400": "fbba1368737a5cb46b0d.jpg",
+    "480": "6347aecc4566fbdbceb2.jpg"
   }
 }
