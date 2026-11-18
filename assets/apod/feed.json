@@ -1,9 +1,9 @@
 {
-  "title": "Milky Way versus Aurora",
-  "source": "https://assets.science.nasa.gov/content/dam/science/cds/apod/apod/2026/november/GalaxyVsAurora_Scheib_960.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+  "title": "A Medium-Sized Solar Flare",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/solar_M_flare.jpg?w=2048&h=2048&fit=clip",
   "images": {
-    "448": "50e8b4451d0d21af92ef.jpg",
-    "400": "bff68ad4917c9f77f528.jpg",
-    "480": "307ac9957c0bd6364dce.jpg"
+    "448": "f3c33a3768c151f5195b.jpg",
+    "400": "c86efaf003d6ea948bc1.jpg",
+    "480": "e2a7d4c3feff1f9ab623.jpg"
   }
 }
