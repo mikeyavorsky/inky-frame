@@ -1,9 +1,9 @@
 {
-  "title": "V-G-R",
-  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/IMG_4364N_Kyriazis.jpg?w=2048&h=2048&fit=clip",
+  "title": "Voyager's Neptune",
+  "source": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/Neptune-South-Pole-Voyager-2_2327x1670.jpg?w=2048&h=1669&fit=clip",
   "images": {
-    "448": "c9367d7f1bf22b4e52e7.jpg",
-    "400": "82e959a434c766e2d3a7.jpg",
-    "480": "3bffe1003da64ce0b94e.jpg"
+    "448": "9bb2850e43d0711b1ecc.jpg",
+    "400": "5323e869d4b68fe6dba8.jpg",
+    "480": "eaca40a9f8f2cde8ac09.jpg"
   }
 }
